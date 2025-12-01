@@ -309,6 +309,8 @@ try:
     #MAIN
     verb = df_rus.loc[i, 'verb']
     meaning = df_rus.loc[i, 'meaning']
+    if '(' or ')' in meaning:
+        meaning = re.sub(r'\s*\([^)]*\)', '', meaning)
     aspect = df_rus.loc[i, 'aspect']
     counterpart = df_rus.loc[i, 'counterpart']
     level = df_rus.loc[i, 'level']
@@ -338,6 +340,8 @@ try:
     #COUNTERPART
     verb_ct = df_ctrus.loc[i, 'verb']
     meaning_ct = df_ctrus.loc[i, 'meaning']
+    if '(' or ')' in meaning_ct:
+        meaning_ct = re.sub(r'\s*\([^)]*\)', '', meaning_ct)
     aspect_ct = df_ctrus.loc[i, 'aspect']
     counterpart_ct = df_ctrus.loc[i, 'counterpart']
     level_ct = df_ctrus.loc[i, 'level']
@@ -406,6 +410,7 @@ try:
           st.markdown('<h4>Examples</h4>', unsafe_allow_html=True)
           for sen in range(3):
               st.markdown(f"""<span style='color: #B984DB;'>{df_rus.loc[i, 'examples'][0][sen]}<br><span style='color: initial;'>{df_rus.loc[i, 'examples'][1][sen]}</span>""", unsafe_allow_html=True)
+        
         with tab2:
           st.markdown(
               """
