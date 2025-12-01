@@ -175,6 +175,90 @@ These are some examples for you so the format will always be consistent:
   }}
 
 Always seperate 2 json objects with "=========="
+JSON object seperation example for consistency:
+[
+  {
+    "verb": "рабо́тать",
+    "meaning": "to work",
+    "aspect": "imperfective",
+    "counterpart": "порабо́тать",
+    "form": {
+      "present/future tense": {
+        "я": "рабо́таю",
+        "ты": "рабо́таешь",
+        "он/она/оно": "рабо́тает",
+        "мы": "рабо́таем",
+        "вы": "рабо́таете",
+        "они": "рабо́тают"
+      },
+      "past tense": {
+        "masc": "рабо́тал",
+        "fem": "рабо́тала",
+        "neu": "рабо́тало",
+        "pl": "рабо́тали"
+      },
+      "imperative": {
+        "sing": "рабо́тай",
+        "pl": "рабо́тайте"
+      }
+    },
+    "level": "A1",
+    "examples": [
+      [
+        "Где ты рабо́таешь сейча́с?",
+        "Мы рабо́тали всю но́чь.",
+        "Рабо́тайте быстре́е, пожа́луйста!"
+      ],
+      [
+        "Where do you work now?",
+        "We worked all night.",
+        "Work faster, please!"
+      ]
+    ]
+  }
+]
+==========
+[
+  {
+    "verb": "порабо́тать",
+    "meaning": "to work for a while (perfective)",
+    "aspect": "perfective",
+    "counterpart": "рабо́тать",
+    "form": {
+      "present/future tense": {
+        "я": "порабо́таю",
+        "ты": "порабо́таешь",
+        "он/она/оно": "порабо́тает",
+        "мы": "порабо́таем",
+        "вы": "порабо́таете",
+        "они": "порабо́тают"
+      },
+      "past tense": {
+        "masc": "порабо́тал",
+        "fem": "порабо́тала",
+        "neu": "порабо́тало",
+        "pl": "порабо́тали"
+      },
+      "imperative": {
+        "sing": "порабо́тай",
+        "pl": "порабо́тайте"
+      }
+    },
+    "level": "B1",
+    "examples": [
+      [
+        "Они́ порабо́тают в саду́ за́втра.",
+        "Я порабо́тал в огоро́де всего́ ча́с.",
+        "Порабо́тай немного́, а пото́м отдохни́."
+      ],
+      [
+        "They will work in the garden tomorrow (for a while).",
+        "I worked in the garden for only an hour.",
+        "Work a little, and then rest."
+      ]
+    ]
+  }
+]
 
 This is the text that you have to work with:
 "
