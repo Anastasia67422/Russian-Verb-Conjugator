@@ -332,6 +332,7 @@ try:
     imperative_conj.name = 'Conjugation'
     imperative_conj_df = imperative_conj.to_frame()
 
+
     #COUNTERPART
     verb_ct = df_ctrus.loc[i, 'verb']
     meaning_ct = df_ctrus.loc[i, 'meaning']
@@ -368,9 +369,9 @@ try:
           st.markdown(
               """
               <style>
-                  div[data-testid="column"]:nth-of-type(1)
+                  div[data-testid="column"]:nth-of-type(2)
                   {
-                      text-align: end;
+                      text-align: right;
                   } 
               </style>
               """,unsafe_allow_html=True
@@ -379,7 +380,7 @@ try:
           with vocab:
             st.markdown(f"""<h3>{verb}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning}</span></h3>""", unsafe_allow_html=True)
           with lvl_vocab:
-            st.subheader(f':gray-background[{level}]')
+            st.markdown(f'<div style="text-align: right;"><h3>:gray-background[{level}]</h3></div>', unsafe_allow_html=True)
 
           st.markdown(f"""<h5>The verb's counterpart: <span style="background-color: rgba(185, 132, 219, 0.3); padding: 5px; border-radius: 5px;">{counterpart}</span></h5>""", unsafe_allow_html=True)
 
@@ -407,18 +408,18 @@ try:
           st.markdown(
               """
               <style>
-                  div[data-testid="column"]:nth-of-type(1)
+                  div[data-testid="column"]:nth-of-type(2)
                   {
-                      text-align: end;
+                      text-align: right;
                   } 
               </style>
               """,unsafe_allow_html=True
           )          
           vocab, lvl_vocab = st.columns([7, 3])
           with vocab:
-            st.markdown(f"""<h3>{verb}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning}</span></h3>""", unsafe_allow_html=True)
+            st.markdown(f"""<h3>{verb_ct}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning}</span></h3>""", unsafe_allow_html=True)
           with lvl_vocab:
-            st.subheader(f':gray-background[{level}]')
+            st.markdown(f'<div style="text-align: right;"><h3>:gray-background[{level_ct}]</h3></div>', unsafe_allow_html=True)
 
           st.markdown(f"""<h5>The verb's counterpart: <span style="background-color: rgba(185, 132, 219, 0.3); padding: 5px; border-radius: 5px;">{counterpart_ct}</span></h5>""", unsafe_allow_html=True)
 
