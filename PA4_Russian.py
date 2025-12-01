@@ -3,6 +3,7 @@ import pandas as pd
 from pandas import json_normalize
 import json
 import streamlit as st
+import re
 
 
 st.set_page_config(layout="wide")
