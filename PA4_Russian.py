@@ -18,7 +18,7 @@ st.markdown("""
 st.html("<style>[data-testid='stHeaderActionElements'] {display: none;}</style>")
 
 
-st.markdown("<h1 span style='color: #B984DB;'>Russian Verb Helper</span>", unsafe_allow_html=True)
+st.markdown("<h1 span style='color: #B984DB;'>Russian Verb Conjugator</span>", unsafe_allow_html=True)
 st.divider()
 st.header("This application will help you extract the verb from the text, conjugate them for you and give you some examples! Simply put your text in the box and we're ready to go!")
 
