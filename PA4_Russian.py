@@ -381,7 +381,7 @@ try:
           with vocab:
             st.markdown(f"""<h3>{verb}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning}</span></h3>""", unsafe_allow_html=True)
           with lvl_vocab:
-            st.markdown(f'<div style="text-align: right;"><h3>:gray-background[{level}]</h3></div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="text-align: right; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;"><h3>{level}</h3></div>', unsafe_allow_html=True)
 
           st.markdown(f"""<h5>The verb's counterpart: <span style="background-color: rgba(185, 132, 219, 0.3); padding: 5px; border-radius: 5px;">{counterpart}</span></h5>""", unsafe_allow_html=True)
 
@@ -420,7 +420,7 @@ try:
           with vocab:
             st.markdown(f"""<h3>{verb_ct}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect_ct}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning_ct}</span></h3>""", unsafe_allow_html=True)
           with lvl_vocab:
-            st.markdown(f'<div style="text-align: right;"><h3>:gray-background[{level_ct}]</h3></div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="text-align: right; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;"><h3>{level_ct}</h3></div>', unsafe_allow_html=True)
 
           st.markdown(f"""<h5>The verb's counterpart: <span style="background-color: rgba(185, 132, 219, 0.3); padding: 5px; border-radius: 5px;">{counterpart_ct}</span></h5>""", unsafe_allow_html=True)
 
