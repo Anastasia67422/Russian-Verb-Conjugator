@@ -365,9 +365,21 @@ try:
         tab1, tab2 = st.tabs([verb, counterpart])
 
         with tab1:
-          st.markdown(f"""<h3>{verb}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning}</span></h3>""", unsafe_allow_html=True)
-          st.space("stretch")
-          st.subheader(f':gray-background[{level}]')
+          st.markdown(
+              """
+              <style>
+                  div[data-testid="column"]:nth-of-type(1)
+                  {
+                      text-align: end;
+                  } 
+              </style>
+              """,unsafe_allow_html=True
+          )
+          vocab, lvl_vocab = st.columns([7, 3])
+          with vocab:
+            st.markdown(f"""<h3>{verb}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning}</span></h3>""", unsafe_allow_html=True)
+          with lvl_vocab:
+            st.subheader(f':gray-background[{level}]')
 
           st.markdown(f"""<h5>The verb's counterpart: <span style="background-color: rgba(185, 132, 219, 0.3); padding: 5px; border-radius: 5px;">{counterpart}</span></h5>""", unsafe_allow_html=True)
 
@@ -392,9 +404,21 @@ try:
           for sen in range(3):
               st.markdown(f"""<span style='color: #B984DB;'>{df_rus.loc[i, 'examples'][0][sen]}<br><span style='color: initial;'>{df_rus.loc[i, 'examples'][1][sen]}</span>""", unsafe_allow_html=True)
         with tab2:
-          st.markdown(f"""<h3>{verb_ct}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect_ct}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning_ct}</span></h3>""", unsafe_allow_html=True)
-          st.space("stretch")
-          st.subheader(f':gray-background[{level_ct}]')
+          st.markdown(
+              """
+              <style>
+                  div[data-testid="column"]:nth-of-type(1)
+                  {
+                      text-align: end;
+                  } 
+              </style>
+              """,unsafe_allow_html=True
+          )          
+          vocab, lvl_vocab = st.columns([7, 3])
+          with vocab:
+            st.markdown(f"""<h3>{verb}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning}</span></h3>""", unsafe_allow_html=True)
+          with lvl_vocab:
+            st.subheader(f':gray-background[{level}]')
 
           st.markdown(f"""<h5>The verb's counterpart: <span style="background-color: rgba(185, 132, 219, 0.3); padding: 5px; border-radius: 5px;">{counterpart_ct}</span></h5>""", unsafe_allow_html=True)
 
