@@ -280,6 +280,7 @@ st.divider()
 try:
   st.header(f'There are {len(df_rus)} verbs in the text!')
   #List of contents USE popover?
+  #Graph for CEFR freq!!
 
   #MAIN VERB
   # df_rus = df_rus.sort_values(by='level', ascending=False).reset_index() #NOT NOW
@@ -417,7 +418,7 @@ try:
           )          
           vocab, lvl_vocab = st.columns([7, 3])
           with vocab:
-            st.markdown(f"""<h3>{verb_ct}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning}</span></h3>""", unsafe_allow_html=True)
+            st.markdown(f"""<h3>{verb_ct}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect_ct}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning_ct}</span></h3>""", unsafe_allow_html=True)
           with lvl_vocab:
             st.markdown(f'<div style="text-align: right;"><h3>:gray-background[{level_ct}]</h3></div>', unsafe_allow_html=True)
 
