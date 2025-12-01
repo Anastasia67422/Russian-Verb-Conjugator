@@ -60,15 +60,28 @@ def load_data_from_json(json_text):
     if not json_text:
         return pd.DataFrame()
     
-    if json_text.startswith('```json'):
-        json_text = json_text[7:]
-    if json_text.endswith('```'):
-        json_text = json_text[:-3]
+    mainverb_text, counterverb_text = json_text.split("==========")
+    mainverb_text = mainverb_text.strip()
+    counterverb_text = counterverb_text.strip()
 
+    if mainverb_text.startswith('```json'):
+        mainverb_text = mainverb_text[7:]
+    if mainverb_text.endswith('```'):
+        mainverb_text = mainverb_text[:-3]
+
+    if counterverb_text.startswith('```json'):
+        counterverb_text = counterverb_text[7:]
+    if counterverb_text.endswith('```'):
+        counterverb_text = counterverb_text[:-3]
+    
     try:
-        dfdata = json.loads(json_text)
-        data = json_normalize(dfdata, sep='.')
-        return data
+        df_mainverb_data = json.loads(mainverb_text)
+        mainverb_data = json_normalize(df_mainverb_data, sep='.')
+
+        df_counterverb_data = json.loads(counterverb_text)
+        counterverb_data = json_normalize(df_counterverb_data, sep='.')
+
+        return mainverb_data, counterverb_data
     except json.JSONDecodeError:
         st.error("Error decoding JSON from model response.")
         return pd.DataFrame()
@@ -174,16 +187,18 @@ This is the text that you have to work with:
     raw_json_text = call_gemini_api(prompt) 
     
     if raw_json_text:
-        df_rus = load_data_from_json(raw_json_text)
+        df_rus, df_ctrus = load_data_from_json(raw_json_text)
 
 
 st.divider()
 
 
 try:
+  st.header(f'There are {len(df_rus)} verbs in the text!')
   #List of contents USE popover?
-  # df_rus = df_rus.sort_values(by='level', ascending=False).reset_index() #NOT NOW
 
+  #MAIN VERB
+  # df_rus = df_rus.sort_values(by='level', ascending=False).reset_index() #NOT NOW
   df_rus['verb'] = df_rus['verb'].str.capitalize()
   df_rus['meaning'] = df_rus['meaning'].str.capitalize()
   df_rus['aspect'] = df_rus['aspect'].str.capitalize()
@@ -193,9 +208,19 @@ try:
   past_tense_cols = [col for col in df_rus.columns if col.startswith('form.past tense.')]
   imperative_cols = [col for col in df_rus.columns if col.startswith('form.imperative.')]
 
-  st.header(f'There are {len(df_rus)} verbs in the text!')
+  #COUNTERPART VERB
+  # df_ctrus = df_ctrus.sort_values(by='level', ascending=False).reset_index()
+  df_ctrus['verb'] = df_ctrus['verb'].str.capitalize()
+  df_ctrus['meaning'] = df_ctrus['meaning'].str.capitalize()
+  df_ctrus['aspect'] = df_ctrus['aspect'].str.capitalize()
+  df_ctrus['counterpart'] = df_ctrus['counterpart'].str.capitalize()
+
+  ct_pre_fur_tense_cols = [col for col in df_ctrus.columns if col.startswith('form.present/future tense.')]
+  ct_past_tense_cols = [col for col in df_ctrus.columns if col.startswith('form.past tense.')]
+  ct_imperative_cols = [col for col in df_ctrus.columns if col.startswith('form.imperative.')]
 
   for i in range(len(df_rus)):
+    #MAIN
     verb = df_rus.loc[i, 'verb']
     meaning = df_rus.loc[i, 'meaning']
     aspect = df_rus.loc[i, 'aspect']
@@ -222,6 +247,34 @@ try:
     imperative_conj.index.name = 'Grammar Form'
     imperative_conj.name = 'Conjugation'
     imperative_conj_df = imperative_conj.to_frame()
+
+    #COUNTERPART
+    verb_ct = df_ctrus.loc[i, 'verb']
+    meaning_ct = df_ctrus.loc[i, 'meaning']
+    aspect_ct = df_ctrus.loc[i, 'aspect']
+    counterpart_ct = df_ctrus.loc[i, 'counterpart']
+    level_ct = df_ctrus.loc[i, 'level']
+
+    #PRESENT/FUTURE
+    ct_pre_fur_conj = df_ctrus[ct_pre_fur_tense_cols].iloc[i]
+    ct_pre_fur_conj.index = ['я', 'ты','он/она́/оно́', 'мы', 'вы', 'они́']
+    ct_pre_fur_conj.index.name = 'Grammar Form'
+    ct_pre_fur_conj.name = 'Conjugation'
+    ct_pre_fur_conj_df = ct_pre_fur_conj.to_frame()
+
+    #PAST
+    ct_past_conj = df_ctrus[ct_past_tense_cols].iloc[i]
+    ct_past_conj.index = ['Masculine (я/ты/он)', 'Feminine (я/ты/она́)', 'Neuter (оно́)', 'Plural (мы/вы/они́)']
+    ct_past_conj.index.name = 'Grammar Form'
+    ct_past_conj.name = 'Conjugation'
+    ct_past_conj_df = ct_past_conj.to_frame()
+
+    #IMPERATIVE
+    ct_imperative_conj = df_ctrus[ct_imperative_cols].iloc[i]
+    ct_imperative_conj.index = ['Singular (ты)', 'Plural (вы)']
+    ct_imperative_conj.index.name = 'Grammar Form'
+    ct_imperative_conj.name = 'Conjugation'
+    ct_imperative_conj_df = ct_imperative_conj.to_frame()
 
 
     with st.expander(f'**{verb}** -- {meaning} -- {aspect}'):
@@ -256,7 +309,36 @@ try:
           st.markdown('<h4>Examples</h4>', unsafe_allow_html=True)
           for sen in range(3):
               st.markdown(f"""<span style='color: #B984DB;'>{df_rus.loc[i, 'examples'][0][sen]}<br><span style='color: initial;'>{df_rus.loc[i, 'examples'][1][sen]}</span>""", unsafe_allow_html=True)
+        with tab2:
+          vocab, lvl_vocab = st.columns([19, 1])
+          with vocab:
+            st.markdown(f"""<h3>{verb_ct}&ensp;<span style="font-size: 0.5em; background-color: rgba(128, 128, 128, 0.5); padding: 5px; border-radius: 5px;">{aspect_ct}</span><br><span style="color: #E2BD6B; font-size: 1em;">{meaning_ct}</span></h3>""", unsafe_allow_html=True)
+          with lvl_vocab:
+            st.subheader(f':gray-background[{level_ct}]')
 
+          st.markdown(f"""<h5>The verb's counterpart: <span style="background-color: rgba(185, 132, 219, 0.3); padding: 5px; border-radius: 5px;">{counterpart_ct}</span></h5>""", unsafe_allow_html=True)
+
+          prefur, past, imperative = st.columns(3)
+          
+          with prefur:
+              if aspect == 'Imperfective':
+                  st.markdown(f'<h4>Present Tense</h4>', unsafe_allow_html=True)
+              elif aspect == 'Perfective':
+                  st.markdown(f'<h4>Future Tense</h4>', unsafe_allow_html=True)
+              st.dataframe(ct_pre_fur_conj_df)
+
+          with past:
+              st.markdown('<h4>Past Tense</h4>', unsafe_allow_html=True)
+              st.dataframe(ct_past_conj_df)
+
+          with imperative:
+              st.markdown('<h4>Imperative</h4>', unsafe_allow_html=True)
+              st.dataframe(ct_imperative_conj_df)
+
+          st.markdown('<h4>Examples</h4>', unsafe_allow_html=True)
+          for sen in range(3):
+              st.markdown(f"""<span style='color: #B984DB;'>{df_ctrus.loc[i, 'examples'][0][sen]}<br><span style='color: initial;'>{df_ctrus.loc[i, 'examples'][1][sen]}</span>""", unsafe_allow_html=True)
+        
 except NameError:
     st.warning("No verbs found or processed yet. Please enter text and submit to see results.")
 
