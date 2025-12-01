@@ -30,7 +30,7 @@ st.write('**<u>Note</u>** In Russian, the imperfective aspect forms the present 
 #API, INPUT and PROMPT
 api_key = None
 with st.sidebar:
-    api_key = st.text_input("Enter your API Key", type="password")
+    api_key = st.text_input("Enter your API Key", type="password", placeholder="Your API key")
 
 if api_key:
     try:
