@@ -43,7 +43,7 @@ if api_key:
         st.error(f"Error configuring API Key: {e}")
         is_model_ready = False
 else:
-    st.warning("Please enter your API Key in the sidebar to begin.")
+    st.info("Please enter your API Key in the sidebar to begin.")
     is_model_ready = False
 
 
@@ -283,6 +283,27 @@ try:
   st.header(f'There are {len(df_rus)} verbs in the text!')
   #List of contents USE popover?
   #Graph for CEFR freq!!
+  chart, chart_info, operation = st.columns([5, 5, 5])
+  with chart:
+    lvl_w_amt = [{'level': 'A1', 'amount': 0},
+       {'level': 'A2', 'amount': 0},
+       {'level': 'B1', 'amount': 0},
+       {'level': 'B2', 'amount': 0},
+       {'level': 'C1', 'amount': 0},
+       {'level': 'C2', 'amount': 0}]
+    
+    for b in range(len(df_rus['level'])):
+        v_lvl = df_rus['level'][b]
+        for nb in range(len(lvl_w_amt)):
+            amlvl = lvl_w_amt[nb]['level']
+            if v_lvl == amlvl:
+                lvl_w_amt[nb]['amount'] += 1
+
+    lvl_w_amt_df = pd.DataFrame(lvl_w_amt)
+    st.bar_chart(lvl_w_amt_df, x='level', y='amount', horizontal=True)
+    
+
+
 
   #MAIN VERB
   # df_rus = df_rus.sort_values(by='level', ascending=False).reset_index() #NOT NOW
@@ -433,5 +454,5 @@ try:
               st.markdown(f"""<span style='color: #B984DB;'>{df_ctrus.loc[i, 'examples'][0][sen]}<br><span style='color: initial;'>{df_ctrus.loc[i, 'examples'][1][sen]}</span>""", unsafe_allow_html=True)
         
 except NameError:
-    st.warning("No verbs found or processed yet. Please enter text and submit to see results.")
+    st.info("No verbs found or processed yet. Please enter text and submit to see results.")
 
