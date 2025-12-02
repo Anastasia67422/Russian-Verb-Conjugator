@@ -91,7 +91,7 @@ def load_data_from_json(json_text):
 
 
 with st.form("user_input"):
-    user_text_input = st.text_area("Your text", max_chars=2500, placeholder='Put your Russian text in here! Maximun 2,500 words.').strip()
+    user_text_input = st.text_area("Your text", max_chars=1500, placeholder='Put your Russian text in here! Maximun 1,500 words.').strip()
     st.form_submit_button('Process!')
 
 if is_model_ready and user_text_input:
