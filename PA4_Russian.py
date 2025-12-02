@@ -281,32 +281,25 @@ st.divider()
 
 try:
   st.header(f'There are {len(df_rus)} verbs in the text!')
-  #List of contents USE popover?
-  #Graph for CEFR freq!!
-  chart, chart_info, operation = st.columns([5, 5, 5])
-  with chart:
-    lvl_w_amt = [{'level': 'A1', 'amount': 0},
-       {'level': 'A2', 'amount': 0},
-       {'level': 'B1', 'amount': 0},
-       {'level': 'B2', 'amount': 0},
-       {'level': 'C1', 'amount': 0},
-       {'level': 'C2', 'amount': 0}]
-    
-    for b in range(len(df_rus['level'])):
-        v_lvl = df_rus['level'][b]
-        for nb in range(len(lvl_w_amt)):
-            amlvl = lvl_w_amt[nb]['level']
-            if v_lvl == amlvl:
-                lvl_w_amt[nb]['amount'] += 1
+  lvl_w_amt = [{'level': 'A1', 'amount': 0},
+      {'level': 'A2', 'amount': 0},
+      {'level': 'B1', 'amount': 0},
+      {'level': 'B2', 'amount': 0},
+      {'level': 'C1', 'amount': 0},
+      {'level': 'C2', 'amount': 0}]
+  
+  for b in range(len(df_rus['level'])):
+      v_lvl = df_rus['level'][b]
+      for nb in range(len(lvl_w_amt)):
+          amlvl = lvl_w_amt[nb]['level']
+          if v_lvl == amlvl:
+              lvl_w_amt[nb]['amount'] += 1
 
-    lvl_w_amt_df = pd.DataFrame(lvl_w_amt)
-    st.bar_chart(lvl_w_amt_df, x='level', y='amount', horizontal=True)
-    
-
+  lvl_w_amt_df = pd.DataFrame(lvl_w_amt)
+  st.bar_chart(lvl_w_amt_df, x='level', y='amount', color='#B984DB', horizontal=True)
 
 
   #MAIN VERB
-  # df_rus = df_rus.sort_values(by='level', ascending=False).reset_index() #NOT NOW
   df_rus['verb'] = df_rus['verb'].str.capitalize()
   df_rus['meaning'] = df_rus['meaning'].str.capitalize()
   df_rus['aspect'] = df_rus['aspect'].str.capitalize()
@@ -317,7 +310,6 @@ try:
   imperative_cols = [col for col in df_rus.columns if col.startswith('form.imperative.')]
 
   #COUNTERPART VERB
-  # df_ctrus = df_ctrus.sort_values(by='level', ascending=False).reset_index()
   df_ctrus['verb'] = df_ctrus['verb'].str.capitalize()
   df_ctrus['meaning'] = df_ctrus['meaning'].str.capitalize()
   df_ctrus['aspect'] = df_ctrus['aspect'].str.capitalize()
