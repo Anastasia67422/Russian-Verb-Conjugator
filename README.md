@@ -1,3 +1,3 @@
-Use the text sample to try it out!
+Use the text samples to try it out!
 
 **If there's an error occur, reload the page and try again. The AI is wonky sometimes...
